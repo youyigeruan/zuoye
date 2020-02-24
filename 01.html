@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>扇形统计图</title>
+		<script src="echarts.min.js"></script>
+		<style>
+			div{width:800px;height:800px;}
+		</style>
+	</head>
+	<body>
+		<div id="container" style="height:800px"></div>
+		<script>
+			var dom = document.getElementById("container");
+			var myChart = echarts.init(dom);
+			var app = {};
+			option = null;
+			option = {
+				titile:{
+					text:"echarts 入门示例",
+					subtext:"虚构数据",
+					left:"center"
+				},
+				// tooltio:{
+				// 	trigger:"item",
+				// 	formatter:"{a}<br/>{b}:{c} ({d}%)"
+				// },
+				legend:{
+					bottom:10,
+					left:"center",
+					data:["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+				},
+				series:[
+					{
+						type:"pie",
+						radius:"65%",
+						center:["50%","50%"],
+						selectedMode:"single",
+						data:[
+							{value:15,name:"衬衫"},
+							{value:20,name:"羊毛衫"},
+							{value:36,name:"雪纺衫"},
+							{value:10,name:"裤子"},
+							{value:10,name:"高跟鞋"},
+							{value:20,name:"袜子"},
+						],
+						emphasis:{
+							itemStyle:{
+								shadowBlur:10,
+								shadowOffsetX:0,
+								shadowColor:"rgba(0,0,0,0.5)"
+							}
+						}
+					}
+				]
+			};
+			if(option && typeof option === "object"){
+				myChart.setOption(option,true);
+			}
+		</script>
+	</body>
+</html>
