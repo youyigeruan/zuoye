@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body>
+		<div id="vm">
+			<div>第一个数：{{firstNum}}</div>
+			<div>第二个数：{{secondNum}}</div>
+			<div>两个数之和:{{sum}}</div>
+			<div v-html="content"></div>
+			<div v-once>{{one}}</div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:"#vm",
+				data:{
+					firstNum:10,
+					secondNum:13,
+					// sum:23
+					content:"<h2>今天天气真好啊！</h2>",
+					one:14
+				},
+				computed:{
+					sum:function(){
+						return this.firstNum + this.secondNum;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			.active{color:red;}
+			.choose{border:2px solid purple;}
+			.bg{background:yellowgreen;}
+			.color{color:#999;}
+			.border{border:3px dotted blue;}
+			
+		</style>
+	</head>
+	<body>
+		<div id="vm">
+			<p :class="{active:colorFlag,choose:borderFlag}">春江潮水连海平，海上明月共潮生</p>
+			<p :class="[myBackground,myColor]">滟滟随波千万里，何处春江无月明</p>
+			<p :class="[true?myBorder:myBackground,'color']">江流宛转绕芳甸，月照花林皆似霰</p>
+			<p :style="{background:'yellow',color:'lightblue'}">空里流霜不觉飞，汀上白沙看不见</p>
+			<p :style="{background:backgroundColor,border:borderStyle}">江天一色无纤尘，皎皎空中孤月轮</p>
+			<p :style="mystyle">江畔何人初见月？江月何年初照人</p>
+			<p>人生代代无穷已，江月年年望相似</p>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:"#vm",
+				data:{
+					colorFlag:true,
+					borderFlag:false,
+					myBackground:"bg",
+					myColor:"color",
+					myBorder:"border",
+					mystyle:{
+						background:"red",
+						color:"gold"
+					},
+					backgroundColor:"lightgreen",
+					borderStyle:"1px solid pink"
+				}
+			})
+		</script>
+	</body>
+</html>

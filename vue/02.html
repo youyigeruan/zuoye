@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id = "vm">
+			<button v-bind:disabled="disableT">{{btnT}}</button>
+			<div>{{number + 1}}</div>
+			<div>{{flag?13:14}}</div>
+			<div>{{text.split("").reverse().join("")}}</div>
+			<div v-bind:id="'list-'+ number">11</div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:"#vm",
+				data:{
+					disableT:true,
+					btnT:10,
+					number:11,
+					text:"今天学习vue",
+					flag:true
+				},
+				mounted:function(){
+					var num = 10;
+					var timer = setInterval(()=>{
+						if(num < 1){
+							this.btnT = "确定";
+							this.disableT = false;
+							clearInterval(timer);
+						}else{
+							this.btnT = num;
+						}
+						num--;
+					},1000)
+				}
+			})
+		</script>
+	</body>
+</html>
