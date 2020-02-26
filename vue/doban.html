@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="js/axios.min.js"></script>
+		<style>
+			*{margin:0;padding:0;}
+			ul li{list-style: none;width:110px;}
+			ul{display:flex;flex-wrap: nowrap;flex-direction: row;width: 100%;overflow: auto;margin:20px 0;}
+			ul li img{width:100px;margin:5px;height:140px;}
+			li p{font-size: 12px;text-align: center;}
+			li h3{font-size: 12px;text-align: center;color:goldenrod;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<p>近期值得看的国产剧：</p>
+			<ul >
+				<li v-for="item in dianshi">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li>
+			</ul>
+			<p>近期值得看的综艺节目：</p>
+			<ul >
+				<li v-for="item in zongyi">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li>
+			</ul>
+			<p>近期值得看的英美剧：</p>
+			<ul >
+				<li v-for="item in yingmei">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					dianshi:[],
+					zongyi:{},
+					yingmei:{}
+				},
+				mounted:function(){
+					axios.get("json/dianshiju.json").then((data) => {
+						console.log(data);
+						this.dianshi = data.data.subject_collection_items;
+						console.log(this.dianshi);
+						
+					}).catch(function(error){
+						console.log(error);
+					});
+					axios.get("json/zongyi.json").then((data) => {
+						
+						this.zongyi = data.data.subject_collection_items;
+					}).catch(function(error){
+						console.log(error);
+					});
+					axios.get("json/yingmei.json").then((data) => {
+						
+						this.yingmei = data.data.subject_collection_items;
+					}).catch(function(error){
+						console.log(error);
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

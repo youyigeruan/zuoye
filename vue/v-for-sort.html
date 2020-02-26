@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			li{list-style: none;display:flex;justify-content: space-around;width:600px;border:1px solid black;}
+			li:nth-of-type(1){font-weight: bold;}
+			li div{width:20%;text-align: center;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<ul >
+				<li v-for="i in ary">
+					<div>{{i.number}}</div>
+					<div>{{i.name}}</div>
+					<div>{{i.sex}}</div>
+					<div>{{i.age}}</div>
+					<div>{{i.phone}}</div>
+				</li>
+				
+			</ul>
+			<button @click="getSort">点击按年龄进行排序</button>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					ary:[{
+						number:"学号",
+						name:"姓名",
+						sex:"性别",
+						age:"年龄" ,
+						phone: "电话号码"
+					},{
+						number:"01",
+						name:"小华",
+						sex:"男",
+						age: 19,
+						phone:1234 
+					},{
+						number:"02",
+						name:"小芳",
+						sex:"女",
+						age:18 ,
+						phone:2234 
+					},{
+						number:"03",
+						name:"小张",
+						sex:"男",
+						age:18 ,
+						phone:3314 
+					},{
+						number:"04",
+						name:"小林",
+						sex:"女",
+						age:17 ,
+						phone:3214 
+					}]
+				},
+				methods:{
+					getSort:function(){
+						this.ary.sort(function(a,b){
+							return a.age - b.age;
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
