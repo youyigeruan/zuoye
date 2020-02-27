@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<style>
+			#app{position: absolute; top: 0; left:0; bottom:0;right:0;}
+			.pink{width:80px;height:80px;background:yellowgreen;color:pink;border-radius: 50%;
+			right:10px;bottom:30px;line-height:80px;position:fixed;}
+			.big{width:100%;height:100%;border:1px solid ;overflow:scroll;}
+			.tong{height:1500px;}
+		</style>
+	</head>
+	<body>
+		<div id="app" >
+			<div class="big" @scroll="show">
+				<div class="tong"></div>
+				<div class="pink" v-show="flag" @click="top">回到顶部</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					flag:false
+				},
+				methods:{
+					show:function(ev){
+						console.log(111);
+						if(ev.target.scrollTop > 400){
+							this.flag = true;
+						}else{
+							this.flag = false;
+						}
+					},
+					top:function(ev){
+						ev.target.parentNode.scrollTop = 0;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
