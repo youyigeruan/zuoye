@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios.min.js"></script>
+		<meta name="viewport" content="width=device-width">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			ul li{list-style: none;width:110px;}
+			ul{display:flex;flex-wrap: nowrap;flex-direction: row;width: 100%;overflow: auto;margin:20px 0;}
+			ul li img{width:100px;margin:5px;height:140px;}
+			li p{font-size: 12px;text-align: center;}
+			li h3{font-size: 12px;text-align: center;color:goldenrod;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<big :value="myj"></big>
+		</div>
+		<script type="text/javascript">
+			var dianshi = {
+				props:["dianshij"],
+				created:function(){
+					console.log(44444)
+				},
+				template:`<ul><li v-for="item in dianshij">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li></ul>`
+			}
+			var yingmei = {
+				props:["yingmeij"],
+				created:function(){
+					console.log(333333)
+				},
+				template:`<ul><li v-for="item in yingmeij">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li></ul>`
+			}
+			var zongyi = {
+				props:["zongyij"],
+				updated:function(){
+					console.log(this.zongyij);
+				},
+				template:`<ul><li v-for="item in zongyij">
+					<div><img :src="item.cover.url" alt="img"></div>
+					<p>{{item.title}}</p>
+					<h3 v-if="item.rating">豆瓣评分：{{item.rating.value}}</h3>
+					<h3 v-else>暂无评分</h3>
+				</li></ul>`
+			}
+			var big = {
+				props:["value"],
+				mounted:function(){
+					console.log(this.value.toString());
+				},
+				template:`<div>
+					<p>近期值得看的国产剧：</p>
+					<dianshi :dianshij="value.ds"></dianshi>
+					<p>近期值得看的综艺节目：</p>
+					<zongyi :zongyij="value.zy"></zongyi>
+					<p>近期值得看的英美剧：</p>
+					<yingmei :yingmeij="value.ym"></yingmei>
+				</div>`,
+				components:{
+					dianshi,
+					yingmei,
+					zongyi
+				}
+			}
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					myj:{ds:[],zy:[],ym:[]}
+				},
+				mounted:function(){
+					axios.get("../json/dianshiju.json").then((data) => {
+						this.myj.ds = data.data.subject_collection_items;
+					}).catch(function(er){
+						console.log(er)
+					})
+					axios.get("../json/zongyi.json").then((data) => {
+						
+						this.myj.zy = data.data.subject_collection_items;
+					}).catch(function(error){
+						console.log(error);
+					});
+					axios.get("../json/yingmei.json").then((data) => {
+						
+						this.myj.ym = data.data.subject_collection_items;
+					}).catch(function(error){
+						console.log(error);
+					})
+				},
+				components:{
+					big
+				}
+			})
+			var sr = [];
+			sr[0] = [1,2,3];
+			sr[2] = [4,6,6];
+			console.log(sr);
+		</script>
+	</body>
+</html>
