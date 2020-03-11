@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/vue.js">
+			
+		</script>
+		<script type="text/javascript" src="js/vuex.min.js">
+			
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			{{count}}
+			<button @click="increatmentFun">点击加一</button>
+			<button @click="addname">点击加属性</button>
+		</div>
+		<script type="text/javascript">
+			var mapState = Vuex.mapState;
+			var store = new Vuex.Store({
+				state:{
+					count:10
+				},
+				mutations:{
+					add(state,n){
+						state.count += n.num;
+					}
+				}
+			})
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					
+				},
+				computed:{
+					...mapState({
+						count:(state)=>state.count
+					})
+				},
+				store:store,
+				methods:{
+					increatmentFun:function(commit){
+						this.$store.commit({
+							type:"add",
+							num:6
+						});
+					},
+					addname:function(){
+						this.$store.state.name = "mimi";
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

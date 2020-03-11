@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+		<script type="text/javascript" src="../js/vue-router.js">
+			
+		</script>
+		<title></title>
+		<style>
+			.fade-enter-active{
+				transition:all 1.5s;
+			}
+			.fade-leave-active{
+				transition:all 1.5s;
+			}
+			.fade-enter{
+				margin-left:-300px;
+			}
+			.fade-leave-to{
+				margin-left:-300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<nav>
+			<router-link to="/mymain/11">首页</router-link>
+			
+			<router-link to="/myfind">发现</router-link>
+			<router-link to="/mylogin">登录</router-link>
+			</nav>
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var choose = true;
+			var mymain = {
+				template:`<transition name="fade"><div>我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				</div></transition>`,
+				
+			}
+			var myfind = {
+				template:`<div>我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				</div>`
+			}
+			var mylogin = {
+				template:`<div>我是登录</div>`
+			}
+			var flag = true;
+			var routes = [
+				{path:"/mymain/:msg",component:mymain,meta:{requireAuth:false,iconType:false}},
+				{path:"/myfind",component:myfind},
+				{path:"/mylogin",component:mylogin}
+			];
+			var router = new VueRouter({
+				routes:routes
+			})
+			var flag = false;
+			router.beforeEach(function(to,from,next){
+				if(to.meta.requireAuth){
+					if(flag){
+						next();
+					}else{
+						next({path:"/mylogin"})
+					}
+				}else{
+					next();
+				}
+			})
+			var vm = new Vue({
+				el:"#app",
+				data:{},
+				router:router,
+				
+			})
+		</script>
+	</body>
+</html>

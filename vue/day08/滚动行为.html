@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+		<script type="text/javascript" src="../js/vue-router.js">
+			
+		</script>
+		<title></title>
+		<style>
+			nav{position:fixed;top:0;}
+			body{padding-top:20px;}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<nav>
+			<router-link to="/mymain">首页</router-link>
+			<router-link to="/myfind">发现</router-link>
+			<router-link to="/mylogin">登录</router-link>
+			</nav>
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var mymain = {
+				template:`<div>我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				</div>`
+			}
+			var myfind = {
+				template:`<div>我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				</div>`
+			}
+			var mylogin = {
+				template:`<div>我是登录</div>`
+			}
+			var routes = [
+				{path:"/mymain",component:mymain},
+				{path:"/myfind",component:myfind},
+				{path:"/mylogin",component:mylogin}
+			];
+			var router = new VueRouter({
+				routes:routes,
+				scrollBehavior:function(to,from,savedPosition){
+					console.log(savedPosition);
+					if(savedPosition){
+						return {x:0,y:savedPosition}
+					}else{
+						return {x:0,y:0}
+					}
+				}
+			})
+			var flag = true;
+			// router.beforeEach(function(to,from,next){
+			// 	if(to.path == "/mylogin"){
+			// 		next();
+			// 	}else{
+			// 		if(flag){
+			// 			next();
+			// 		}else{
+			// 			next({path:"/mylogin"});
+			// 		}
+			// 	}
+			// })
+			router.beforeResolve(function(to,from,next){
+				if(to.path == "/mylogin"){
+					next();
+				}else{
+					if(flag){
+						next();
+					}else{
+						next({path:"/mylogin"});
+					}
+				}
+			})
+			router.afterEach((to,from)=>{
+				window.scrollTo(0,0);
+			})
+			
+			var vm = new Vue({
+				el:"#app",
+				data:{},
+				router:router,
+				
+			})
+		</script>
+	</body>
+</html>

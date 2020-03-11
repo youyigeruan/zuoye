@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="../js/vue.js">
+			
+		</script>
+		<script type="text/javascript" src="../js/vue-router.js">
+			
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<nav>
+			<router-link to="/mymain/11">首页</router-link>
+			<router-link to="/mymain/22">首页</router-link>
+			<router-link to="/myfind">发现</router-link>
+			<router-link to="/mylogin">登录</router-link>
+			</nav>
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var choose = true;
+			var mymain = {
+				template:`<div>我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				我是首页<br><br><br><br><br><br><br><br>
+				</div>`,
+				beforeRouteEnter(to,from,next){
+					console.log("组件前置守卫触发了")
+					next(vm=>{
+						console.log(vm);
+					})
+					
+				},
+				beforeRouteUpdate(to,from,next){
+					console.log("组件路由发生变化时，路由守卫触发了");
+					next()
+				},
+				beforeRouteLeave(to,form,next){
+					console.log("组件离开时，路由守卫触发了");
+					next();
+				}
+			}
+			var myfind = {
+				template:`<div>我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				我是发现<br><br><br><br><br><br><br><br>
+				</div>`
+			}
+			var mylogin = {
+				template:`<div>我是登录</div>`
+			}
+			var flag = true;
+			var routes = [
+				{path:"/mymain/:msg",component:mymain},
+				{path:"/myfind",component:myfind,beforeEnter(to,from,next){
+					if(flag){
+						next();
+					}else{
+						next({path:"/mylogin"});
+					}
+				}},
+				{path:"/mylogin",component:mylogin}
+			];
+			var router = new VueRouter({
+				routes:routes
+			})
+			var vm = new Vue({
+				el:"#app",
+				data:{},
+				router:router,
+				
+			})
+		</script>
+	</body>
+</html>

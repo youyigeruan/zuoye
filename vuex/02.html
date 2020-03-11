@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/vue.js">
+			
+		</script>
+		<script type="text/javascript" src="js/vuex.min.js">
+			
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			{{$store.state.count}}
+			<button @click="increatmentFun">点击加一</button>
+		</div>
+		<script type="text/javascript">
+			var store = new Vuex.Store({
+				state:{
+					count:10
+				},
+				mutations:{
+					add(state){
+						state.count++;
+					}
+				}
+			})
+			var vm = new Vue({
+				el:"#app",
+				data:{
+					num:10
+				},
+				store:store,
+				methods:{
+					increatmentFun:function(commit){
+						this.$store.commit("add");
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
+
